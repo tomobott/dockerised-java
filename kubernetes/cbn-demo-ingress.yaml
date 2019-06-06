@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1 
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx-testlab
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  labels:
+    app: cbn-demo-java 
+  name: cbn-demo-java 
+spec:
+  rules:
+  - host: id-k8s-ingress-test01.ids.cbn
+    http:
+      paths:
+      - backend:
+          serviceName: cbn-demo-java 
+          servicePort: 8080
+        path: /svc/test/cbn-demo-java
+  tls:
+  - hosts:
+    - id-k8s-ingress-test01.ids.cbn
+    secretName: id-k8s-ingress-test01
+

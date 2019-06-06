@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cbn-demo-java
+  labels:
+    app: cbn-demo-java
+spec:
+  type: NodePort
+  selector:
+    app: cbn-demo-java
+  ports:
+  - protocol: TCP
+    port: 8080
+    name: http
+
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: cbn-demo-java
+  labels: 
+    app: cbn-demo-java
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: cbn-demo-java
+  template:
+    metadata:
+      labels:
+        app: cbn-demo-java
+    spec:
+      containers:
+      - name: cbn-demo-java
+        image: tomobott/cbn-demo-java:v8.3
+        ports:
+        - containerPort: 8080
